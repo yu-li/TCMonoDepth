@@ -1,5 +1,7 @@
 <h2 align="center">TCMonoDepth: Enforcing Temporal Consistency in Video Depth Estimation</h2>
 
+<img src="figs/tennis.gif" width="100%">
+
 **<p align="center">TCMonoDepth is a method for stable depth estimation for any video.</p>**
 
 **<p align="center">TCMonoDepth 是一个为任意视频估计稳定的深度值的模型。</p>**
@@ -10,23 +12,20 @@
 
 #### Testing
 
-You can put you image into the folder `input` and run
+You can download our pretraind checkppont from [link](https://drive.google.com/file/d/1MGefuek7_fW_9vu5bP6l0IIF72tg-n-M/view) (google drive)  or [link](https://pan.baidu.com/s/1CAQwT5CL7-YH4CCYCyplUA) (百度云, 提取码: w2kr) and save it in the`./weights` folder.  Put your video into the folder `videos` and run
 
 ```shell
-TCMonoDepth
+cd TCMonoDepth
 python demo.py
 ```
 
-#### Training:
-
-TBA
 
 
 
+## A small MonoDepth model for mobile devices 
+Coming soon...
 
-## Model
 
-- [x] _ckpt.pt.tar
 
 ## Bibtex
 
@@ -40,3 +39,8 @@ If you use this code for your research, please consider to star this repo and ci
   year={2021}
 }
  ```
+
+## Acknowledgement
+This project of this code is adapted from:
+[MiDaS](https://github.com/isl-org/MiDaS)
+We thank the authors for sharing codes for their great works.
