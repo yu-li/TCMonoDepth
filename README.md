@@ -5,6 +5,29 @@
 **<p align="center">TCMonoDepth 是一个为任意视频估计稳定的深度值的模型。</p>**
 
 
+
+## Usage ##
+
+#### Testing
+
+You can put you image into the folder `input` and run
+
+```shell
+TCMonoDepth
+python demo.py
+```
+
+#### Training:
+
+TBA
+
+
+
+
+## Model
+
+- [x] _ckpt.pt.tar
+
 ## Bibtex
 
 If you use this code for your research, please consider to star this repo and cite our paper.
