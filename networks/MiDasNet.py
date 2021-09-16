@@ -11,7 +11,6 @@ from networks.blocks_midas import _make_encoder
 
 
 class MidasNet(torch.nn.Module):
-
     def __init__(self, args, path=None, features=256, non_negative=True):
         """Init.
 

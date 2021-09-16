@@ -8,7 +8,6 @@ import cv2
 import torch
 from torchvision.transforms import Compose
 
-from networks import MidasNet
 from networks.transforms import Resize
 from networks.transforms import PrepareForNet
 from tqdm import tqdm
@@ -27,6 +26,8 @@ def write_video(filename, output_list, fps=24):
 
 
 def process_depth(dep):
+    dep = dep - dep.min()
+    dep = dep / dep.max()
     dep_vis = dep * 255
 
     return dep_vis.astype('uint8')
@@ -53,7 +54,12 @@ def run(args):
 
     # load network
     print("Creating model...")
-    model = MidasNet(args)
+    if args.model == 'large':
+        from networks import MidasNet
+        model = MidasNet(args)
+    else:
+        from networks import TCSmallNet
+        model = TCSmallNet(args)
 
     if os.path.isfile(args.resume):
         model.load_state_dict(torch.load(args.resume, map_location='cpu'))
@@ -71,8 +77,8 @@ def run(args):
             args.resize_size[1],  #height
             resize_target=None,
             keep_aspect_ratio=True,
-            ensure_multiple_of=args.stride,
-            resize_method="upper_bound",
+            ensure_multiple_of=32,
+            resize_method="lower_bound",
             image_interpolation_method=cv2.INTER_CUBIC,
         ),
         PrepareForNet(),
@@ -94,7 +100,9 @@ def run(args):
                 frame = cv2.cvtColor(cv2.imread(f), cv2.COLOR_BGR2RGB)
                 frame = transform({"image": frame})["image"]
                 frame = torch.from_numpy(frame).to(device).unsqueeze(0)
+
                 prediction = model.forward(frame)
+                print(prediction.min(), prediction.max())
                 prediction = (torch.nn.functional.interpolate(
                     prediction,
                     size=img0.shape[:2],
@@ -125,27 +133,14 @@ if __name__ == "__main__":
     # Settings
     parser = argparse.ArgumentParser(description="A PyTorch Implementation of Video Depth Estimation")
 
-    parser.add_argument('--resume',
-                        default='./weights/_ckpt.pt.tar',
-                        type=str,
-                        metavar='CHECKPOINT_PATH',
-                        help='path to checkpoint file')
+    parser.add_argument('--model', default='large', choices=['small', 'large'], help='size of the model')
+    parser.add_argument('--resume', type=str, required=True, help='path to checkpoint file')
     parser.add_argument('--input', default='./videos', type=str, help='video root path')
-    parser.add_argument('--output',
-                        default='./output',
-                        type=str,
-                        metavar='OUTPUT_PATH',
-                        help='path to save output')
-    parser.add_argument('--stride',
-                        type=int,
-                        default=32,
-                        help='the largest factor a model reduces spatial size of inputs during a forward pass.')
+    parser.add_argument('--output', default='./output', type=str, help='path to save output')
     parser.add_argument('--resize_size',
                         type=int,
-                        nargs='+',
-                        default=[512, 384],
-                        metavar="RESIZE_SIZE",
-                        help="Spatial dimension to resize training samples for training (default : [512, 384])")
+                        default=384,
+                        help="spatial dimension to resize input (default: small model:256, large model:384)")
 
     args = parser.parse_args()
 
