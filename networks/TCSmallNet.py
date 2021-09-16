@@ -125,7 +125,6 @@ class ShuffleNetV2(nn.Module):
 
     def forward(self, x):
         r1 = self.first_conv(x)
-        # r1 = self.maxpool(x)
         r2 = self.stage1(r1)
         r3 = self.stage2(r2)
         r4 = self.stage3(r3)

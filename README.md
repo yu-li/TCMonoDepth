@@ -24,8 +24,13 @@ python demo.py --model large --resume ./weights/_ckpt.pt.tar --input ./videos --
 
 
 ## A small MonoDepth model for mobile devices
-Coming soon...
 
+A lightweight and very fast monodepth model
+
+```shell
+cd TCMonoDepth
+python demo.py --model small --resume ./weights/_ckpt_small.pt.tar --input ./videos --output ./output --resize_size 256
+```
 
 
 ## Bibtex
@@ -43,5 +48,5 @@ If you use this code for your research, please consider to star this repo and ci
 
 ## Acknowledgement
 In this project, parts of the code are adapted from:
-[MiDaS](https://github.com/isl-org/MiDaS)
+[MiDaS](https://github.com/isl-org/MiDaS).
 We thank the authors for sharing codes for their great works.
