@@ -10,6 +10,14 @@
 
 ## Usage ##
 
+#### Requirements
+
+- [x] python
+- [x] pytorch
+- [x] torchvision
+- [x] opencv
+- [x] tqdm
+
 #### Testing
 
 You can download our pretraind checkppont from [link](https://drive.google.com/file/d/1MGefuek7_fW_9vu5bP6l0IIF72tg-n-M/view) (google drive)  or [link](https://pan.baidu.com/s/1CAQwT5CL7-YH4CCYCyplUA) (百度云, 提取码: w2kr) and save it in the`./weights` folder.  Put your video into the folder `videos` and run
