@@ -6,7 +6,9 @@
 
 **<p align="center">TCMonoDepth 是一个为任意视频估计稳定的深度值的模型。</p>**
 
-
+<p align="center">
+  <a href="https://openaccess.thecvf.com/content/ICCV2021W/PBDL/papers/Li_Enforcing_Temporal_Consistency_in_Video_Depth_Estimation_ICCVW_2021_paper.pdf">Paper</a>
+</p>
 
 ## Usage ##
 
